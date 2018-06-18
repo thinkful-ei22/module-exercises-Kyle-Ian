@@ -1,4 +1,5 @@
 'use strict';
+/* global Item, cuid */
 
 const store = (function() {
   const items = [
@@ -9,12 +10,13 @@ const store = (function() {
   ];
   let hideCheckedItems = false;
   let searchTerm = '';
+
   const findById = function(id){
     let foundItem = store.items.find(item => {
-      item.id === id;
-    })
+      return item.id === id;
+    });
     return foundItem;
-  }
+  };
   const addItem = function(name){
     try{
       Item.validateName(name);
@@ -24,27 +26,27 @@ const store = (function() {
     catch(err){
       console.log(`Cannot add ${err.message}`);
     }
-  }
+  };
   const findAndToggleChecked = function(id){
-    let item = this.findById(id);
+    let item = store.findById(id);
     item.checked = !item.checked;
-  }
+  };
   const findAndUpdateName = function(id, newName){
     try{
       Item.validateName(newName);
-      let item = Item.findById(id);
+      let item = store.findById(id);
       item.name = newName;
     }
     catch(err){
       console.log(`Cannot update name: ${err.message}`);
     }
-  }
+  };
   const findAndDelete = function(id){
-    const itemIndex = store.items.findIndex(itemId => {
-       return itemId === id;
+    const itemIndex = items.findIndex(item => {
+      return item.id === id;
     });
     this.items.splice(itemIndex, 1);
-  }
+  };
 
   return {
     items, hideCheckedItems, searchTerm, findById, addItem, findAndToggleChecked, findAndUpdateName, findAndDelete
