@@ -47,9 +47,16 @@ const store = (function() {
     });
     this.items.splice(itemIndex, 1);
   };
+  const toggleCheckedFilter = function(){
+    this.hideCheckedItems = !this.hideCheckedItems;
+  }
+  const setSearchTerm = function(val){
+    this.searchTerm = val;
+  }
 
   return {
-    items, hideCheckedItems, searchTerm, findById, addItem, findAndToggleChecked, findAndUpdateName, findAndDelete
+    items, hideCheckedItems, searchTerm, findById, addItem, findAndToggleChecked,
+    findAndUpdateName, findAndDelete, toggleCheckedFilter, setSearchTerm
   };
 
 }());
