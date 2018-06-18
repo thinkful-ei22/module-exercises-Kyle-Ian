@@ -16,6 +16,9 @@ const state = {
     if(this.board[cell] !== null) return;
     this.board[cell] = this.xIsNext ? 'X' : 'O';
     this.xIsNext = !this.xIsNext;
+    console.log(state.winPattern);
+    this.winPattern = checkWinner(this.board);
+    console.log(state);
   }
 };
 
@@ -27,8 +30,10 @@ const renderBoard = function() {
   console.log('RenderBoard ran');
 
   const renderCell = function(i) {
+    const isWinner = ((state.windPattern && state.winPattern.includes(i))) ? 'win': '';
+    console.log(isWinner);
     return `
-      <div class="cell" id="${i}">
+      <div class="cell ${isWinner}" id="${i}">
         <p>${state.board[i] ? state.board[i] : '&nbsp;'}</p>
       </div>
     `;
@@ -85,14 +90,14 @@ function checkWinner(board){
       return winPattern;
     }
   }
-    return null;
+  return null;
 }
 
 $(function main(){
   renderBoard();
   handleOnCellClick();
   handleOnNewGameClick();
-})
+});
 
 
 
