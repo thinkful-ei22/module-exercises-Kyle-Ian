@@ -16,22 +16,16 @@ const state = {
     if(this.board[cell] !== null) return;
     this.board[cell] = this.xIsNext ? 'X' : 'O';
     this.xIsNext = !this.xIsNext;
-    console.log(state.winPattern);
     this.winPattern = checkWinner(this.board);
-    console.log(state);
   }
 };
 
-// State modification functions
 
 // Render functions
 
 const renderBoard = function() {
-  console.log('RenderBoard ran');
-
   const renderCell = function(i) {
-    const isWinner = ((state.windPattern && state.winPattern.includes(i))) ? 'win': '';
-    console.log(isWinner);
+    let isWinner = (state.winPattern && state.winPattern.includes(i)) ? 'win': '';
     return `
       <div class="cell ${isWinner}" id="${i}">
         <p>${state.board[i] ? state.board[i] : '&nbsp;'}</p>
@@ -60,6 +54,7 @@ const renderBoard = function() {
   $('.board').html(html);
 };
 
+
 // Event Listeners
 
 function handleOnCellClick(){
@@ -84,7 +79,6 @@ function checkWinner(board){
   for(let i = 0; i < winPatterns.length; i++){
     const winPattern = winPatterns[i];
     //prevent win with three nulls by checking first cell isnt null
-    //I DONT GET IT!!!
     if(!board[winPattern[0]]) continue;
     if(board[winPattern[0]] === board[winPattern[1]] && board[winPattern[1]] === board[winPattern[2]]){
       return winPattern;
